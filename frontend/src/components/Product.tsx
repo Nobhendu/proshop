@@ -1,7 +1,8 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Rating from "./Rating";
 
-interface productType {
+type productType = {
   _id: string;
   name: string;
   image: string;
@@ -12,7 +13,7 @@ interface productType {
   countInStock: number;
   rating: number;
   numReviews: number;
-}
+};
 
 const Product = ({ product }: { product: productType }) => {
   return (
@@ -23,10 +24,17 @@ const Product = ({ product }: { product: productType }) => {
 
       <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Title as="div">
+          <Card.Title as="div" className="product-title">
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
+
+        <Card.Text as="div">
+          <Rating
+            value={product.rating}
+            text={`${product.numReviews} reviews`}
+          ></Rating>
+        </Card.Text>
 
         <Card.Text as="h3">${product.price}</Card.Text>
       </Card.Body>
