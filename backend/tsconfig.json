@@ -1,0 +1,36 @@
+{
+  "extends": "ts-node/node16/tsconfig.json",
+  
+  "compilerOptions": {
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+
+  /* Fixing unknown file extension error when using "type": "module" in package.json */
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+
+  "include": ["./src", "/**/*.ts"],
+  "exclude": ["node_modules"],
+  // "references": [{ "path": "./tsconfig.node.json" }]
+}
