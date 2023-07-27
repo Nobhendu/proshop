@@ -2,18 +2,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
-type productType = {
-  _id: string;
-  name: string;
-  image: string;
-  description: string;
-  brand: string;
-  category: string;
-  price: number;
-  countInStock: number;
-  rating: number;
-  numReviews: number;
-};
+import { productType } from "../../typings/*";
 
 const Product = ({ product }: { product: productType }) => {
   return (
