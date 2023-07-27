@@ -15,7 +15,7 @@ const HomeScreen = () => {
         );
         setProducts(data);
       } catch (e) {
-        console.log("e");
+        console.log(e);
       }
     };
 
