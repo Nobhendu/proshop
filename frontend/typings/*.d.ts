@@ -13,8 +13,16 @@ export type productType = {
 
 export type itemType = {
   _id: string;
-  cartItems: itemType[];
+  name: string;
+  image: string;
+  description: string;
+  brand: string;
+  category: string;
   price: number;
+  countInStock: number;
+  rating: number;
+  numReviews: number;
+  cartItems: itemType[];
   qty: number;
   itemsPrice: number;
   taxPrice: number;

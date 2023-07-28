@@ -107,7 +107,7 @@ const ProductScreen = () => {
                     </Row>
                   </ListGroup.Item>
 
-                  {product.countInStock && (
+                  {product.countInStock ? (
                     <ListGroup.Item>
                       <Row>
                         <Col>Qty</Col>
@@ -128,7 +128,7 @@ const ProductScreen = () => {
                         </Col>
                       </Row>
                     </ListGroup.Item>
-                  )}
+                  ) : null}
 
                   <ListGroup.Item>
                     <Button

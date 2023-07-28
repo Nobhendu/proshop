@@ -7,7 +7,6 @@ import { itemType } from "../../typings/*";
 
 const Header = () => {
   const { cartItems }: itemType = useSelector((state: any) => state!.cart);
-  console.log(cartItems);
 
   return (
     <header>
