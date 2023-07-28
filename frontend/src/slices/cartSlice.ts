@@ -30,8 +30,9 @@ const cartSlice = createSlice({
       );
       state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
       state.taxPrice = addDecimals(0.15 * state.itemsPrice);
-      state.totalPrice =
-        state.itemsPrice + state.shippingPrice + state.taxPrice;
+      state.totalPrice = addDecimals(
+        state.itemsPrice + state.shippingPrice + state.taxPrice
+      );
 
       localStorage.setItem("cart", JSON.stringify(state));
     },
