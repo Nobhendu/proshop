@@ -10,3 +10,14 @@ export type productType = {
   rating: number;
   numReviews: number;
 };
+
+export type itemType = {
+  _id: string;
+  cartItems: itemType[];
+  price: number;
+  qty: number;
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+};
