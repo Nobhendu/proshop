@@ -1,8 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { itemType } from "../../typings/*";
-
-const addDecimals = (num: number) =>
-  parseFloat((Math.round(num * 100) / 100).toFixed(2));
+import { updateCart } from "../utils/cartUtils";
 
 const initialState: itemType = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart")!)
@@ -22,19 +20,7 @@ const cartSlice = createSlice({
         );
       else state.cartItems = [...state.cartItems, item];
 
-      state.itemsPrice = addDecimals(
-        state.cartItems.reduce(
-          (acc: number, item) => acc + item.price * item.qty,
-          0
-        )
-      );
-      state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
-      state.taxPrice = addDecimals(0.15 * state.itemsPrice);
-      state.totalPrice = addDecimals(
-        state.itemsPrice + state.shippingPrice + state.taxPrice
-      );
-
-      localStorage.setItem("cart", JSON.stringify(state));
+      updateCart(state);
     },
   },
 });
