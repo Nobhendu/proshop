@@ -4,6 +4,7 @@ import connectDB from "./config/db.ts";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.ts";
 import express, { ErrorRequestHandler, Request, Response } from "express";
 import productRoutes from "./routes/productRoutes.ts";
+import userRoutes from "./routes/userRoutes.ts";
 
 const port = process.env.PORT || 5000;
 
@@ -21,6 +22,7 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler as ErrorRequestHandler);
