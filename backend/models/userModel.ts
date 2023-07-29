@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import { userType } from "../../frontend/typings/*";
 
-const userSchema = new mongoose.Schema(
+const userSchema: mongoose.Schema<userType> = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -23,6 +25,12 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.methods.matchPassword = async function (
+  enteredPassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(enteredPassword, (this! as userType).password);
+};
 
 const User = mongoose.model("User", userSchema);
 

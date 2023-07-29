@@ -29,3 +29,10 @@ export type itemType = {
   shippingPrice: number;
   totalPrice: number;
 };
+
+export type userType = {
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+};
