@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import asyncHandler from "../middleware/asyncHandler";
 import User from "../models/userModel";
 import generateToken from "../utils/generateToken";
+import { JwtPayload } from "jsonwebtoken";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -14,7 +15,7 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -69,15 +70,46 @@ const logoutUser = asyncHandler(async (_req: Request, res: Response) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (_req: Request, res: Response) => {
-  res.send("getUserProfile");
+const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const Req = req as JwtPayload;
+
+  const user = await User.findById(Req.user._id);
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 // @desc    Update user profile
 // @route   PUT /api/users/profile
 // @access  Private
-const updateUserProfile = asyncHandler(async (_req: Request, res: Response) => {
-  res.send("updateUserProfile");
+const updateUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const Req = req as JwtPayload;
+
+  const user = await User.findById(Req.user._id);
+  if (user) {
+    user.name = Req.body.name || user.name;
+    user.email = Req.body.email || user.email;
+    if (Req.body.password) user.password = Req.body.password;
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 // @desc    Get users
