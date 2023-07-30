@@ -1,5 +1,4 @@
 import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +13,6 @@ const Header = () => {
     (state: any) => state!.auth
   );
 
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [logoutApiCall] = useLogoutMutation();
