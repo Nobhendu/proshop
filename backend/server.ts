@@ -1,3 +1,4 @@
+import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./config/db.ts";
@@ -16,10 +17,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use((_req: Request, res: Response, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+const whitelist = ["http://localhost:5000", "http://localhost:5173"];
+app.options("*", cors());
+const corsOptions = {
+  credentials: true,
+  origin: (
+    origin: any,
+    callback: (arg0: Error | null, arg1: boolean | undefined) => void
+  ) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"), undefined);
+    }
+  },
+};
+app.use(cors(corsOptions as CorsOptions));
 
 app.get("/", (_req: Request, res: Response) => {
   res.send("API is running...");
